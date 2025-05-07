@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    image: postgres:16.8-alpine3.20
+    container_name: app-pos
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: muggle
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app-pos
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+    driver: local

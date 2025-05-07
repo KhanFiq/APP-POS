@@ -1,0 +1,141 @@
+openapi: "3.0.0"
+info:
+  title: "App POS"
+  version: "1.0.0"
+  description: "App POS"
+servers:
+  - url: http://localhost:3000/api/
+paths:
+  /login:
+    post:
+      summary: Login user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: The user was successfully login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: "#/components/responses/InternalServerError"
+components:
+  responses:
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/InternalServerError"
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NotFound"
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Forbidden"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Unauthorized"
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BadRequest"
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          example: alice
+        role:
+          type: string
+          example: Manager
+    UserRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          description: The user's username
+          example: alice
+        password:
+          type: string
+          description: The user's password
+          example: password
+    UserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Login Success
+        user:
+          $ref: '#/components/schemas/User'
+        accessToken:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+    Forbidden:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Forbidden
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Unauthorized
+    BadRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Bad Request
+    NotFound:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Not Found
+    InternalServerError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Internal Server Error
+      required:
+        - code
+        - message
+  securitySchemes:
+    api_key:
+      type: HTTP
+      name: api_key
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
+      $ref: '#/components/schemas/User'
