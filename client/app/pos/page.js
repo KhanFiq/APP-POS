@@ -10,8 +10,8 @@ import {
   Wallet, Banknote, User, LogOut 
 } from 'lucide-react';
 
-export default function POSMain() {
-  // contoh doang state produk
+export default function PosPage() {
+
   const [products, setProducts] = useState([
     { id: 1, name: 'Nasi Goreng', price: 25000, category: 'Makanan', image: '/api/placeholder/80/80' },
     { id: 2, name: 'Mie Goreng', price: 22000, category: 'Makanan', image: '/api/placeholder/80/80' },
@@ -22,14 +22,12 @@ export default function POSMain() {
     { id: 7, name: 'Kopi Hitam', price: 12000, category: 'Minuman', image: '/api/placeholder/80/80' },
     { id: 8, name: 'Jus Alpukat', price: 15000, category: 'Minuman', image: '/api/placeholder/80/80' },
   ]);
-  
-  // cart
+
   const [cart, setCart] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('Semua');
   const [paymentMethod, setPaymentMethod] = useState(null);
-  
-  // tambah produk
+
   const addToCart = (product) => {
     const existingItem = cart.find(item => item.id === product.id);
     
@@ -44,7 +42,7 @@ export default function POSMain() {
     }
   };
   
-  // ubah kuantitas di cart
+
   const updateQuantity = (id, newQuantity) => {
     if (newQuantity <= 0) {
       setCart(cart.filter(item => item.id !== id));
@@ -55,24 +53,24 @@ export default function POSMain() {
     }
   };
   
-  // hapus produk dari keranjang
+
   const removeFromCart = (id) => {
     setCart(cart.filter(item => item.id !== id));
   };
   
-  // hitung total belanja
+  
   const calculateTotal = () => {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
   
-  // filter produk by kategori nya
+
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = activeCategory === 'Semua' || product.category === activeCategory;
     return matchesSearch && matchesCategory;
   });
   
-  // proses checkout
+
   const handleCheckout = () => {
     if (!paymentMethod) {
       alert('Silakan pilih metode pembayaran terlebih dahulu!');
@@ -93,7 +91,7 @@ export default function POSMain() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-100">
-      {/* Header */}
+     
       <header className="bg-white shadow-sm p-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-2">
@@ -114,7 +112,7 @@ export default function POSMain() {
       </header>
       
       <div className="flex flex-1 overflow-hidden">
-        {/* Daftar Produk (Sisi Kiri) */}
+       
         <div className="w-2/3 flex flex-col bg-white p-4 overflow-hidden">
           <div className="flex items-center space-x-4 mb-4">
             <div className="relative flex-1">
@@ -232,8 +230,7 @@ export default function POSMain() {
             </TabsContent>
           </Tabs>
         </div>
-        
-        {/* Keranjang Belanja (Sisi Kanan) */}
+    
         <div className="w-1/3 bg-white border-l border-gray-200 flex flex-col overflow-hidden">
           <Card className="flex-1 border-none rounded-none flex flex-col">
             <CardHeader className="pb-2">
@@ -298,7 +295,7 @@ export default function POSMain() {
             </div>
             
             <div className="border-t p-4">
-              {/* Metode Pembayaran */}
+          
               <div className="mb-4">
                 <h3 className="text-sm font-semibold mb-2">Metode Pembayaran</h3>
                 <div className="grid grid-cols-3 gap-2">
