@@ -1,4 +1,6 @@
+"use client"
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -9,18 +11,19 @@ export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
+  
   const handleLogin = () => {
     setLoading(true);
-    
-    // simulasi login
+  
     setTimeout(() => {
       setLoading(false);
+      localStorage.setItem('posUser', username);
       alert('Login berhasil! Username: ' + username);
-      // direct
+      router.push('/pos');
     }, 1000);
   };
-
+  
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md px-4">
