@@ -1,3 +1,6 @@
+
+
+
 # ✨ Features
 - [ ] Management Role
     - [ ] Cashier
@@ -7,3 +10,4 @@
 - [ ] Order
 - [ ] Scan Barcode Product
 - [ ] Management Stock
+---
